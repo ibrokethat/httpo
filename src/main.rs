@@ -1,8 +1,8 @@
-
+//	import our module dependencies into scope
 use lib::experiments::{test_proc, test_ref, test_struct};
-mod lib {
-	pub mod experiments;
-}
+
+//	define the empty dependency module structure used to find modules on the filesystem
+mod lib { pub mod experiments;}
 
 fn main() {
 
@@ -12,6 +12,10 @@ fn main() {
 	test_vec_func();
 }
 
+
+struct Httpo {
+	middleware: Vec<>
+}
 
 struct Context {
 	status: int,
