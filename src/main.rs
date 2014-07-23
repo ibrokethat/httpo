@@ -6,11 +6,10 @@ mod lib {
 
 fn main() {
 
-
-	test_proc();
-	test_ref();
-	test_struct();
-
+	// test_proc();
+	// test_ref();
+	// test_struct();
+	test_vec_func();
 }
 
 
@@ -20,14 +19,14 @@ struct Context {
 }
 
 
-fn mid_1 <'a>(ctx: &'a mut Context) {
+fn mid_1 (ctx: &mut Context) {
 
 	ctx.body.push_str("mid_1");
 	// ctx
 }
 
 
-fn mid_2 <'a>(ctx: &'a mut Context) {
+fn mid_2 (ctx: &mut Context) {
 
 	ctx.body.push_str("mid_2");
 	// ctx
@@ -37,16 +36,18 @@ fn mid_2 <'a>(ctx: &'a mut Context) {
 
 fn test_vec_func () {
 
-	let mut v = Vec::new();
+	// let mut v = Vec::new();
 
-	v.push(mid_1);
-	v.push(mid_2);
+	// v.push(mid_1);
+	// v.push(mid_2);
+
+	let v = [mid_1, mid_2];
 
 	let mut ctx = Context {status: 200, body: String::new()};
 
 	for f in v.iter() {
 		let func = *f;
-		func(&ctx);
+		func(&mut ctx);
 	}
 
 	println!("middleware: {}", ctx.body);
