@@ -14,7 +14,21 @@ fn main() {
 
 
 struct Httpo {
-	middleware: Vec<>
+	middleware: Vec<fn(&mut Context)>,
+	server: int
+}
+
+impl Httpo {
+
+	fn new () -> Httpo {
+
+		Httpo {middleware: Vec::new(), server: 10i}
+	}
+
+	fn utilise (&self, mw: fn(&mut Context)) {
+
+		self.middleware.push(mw);
+	}
 }
 
 struct Context {
@@ -45,11 +59,14 @@ fn test_vec_func () {
 	// v.push(mid_1);
 	// v.push(mid_2);
 
-	let v = [mid_1, mid_2];
+	let mut app = Httpo::new();
+
+	app.utilise(mid_1);
+	app.utilise(mid_2);
 
 	let mut ctx = Context {status: 200, body: String::new()};
 
-	for f in v.iter() {
+	for f in app.middleware.iter() {
 		let func = *f;
 		func(&mut ctx);
 	}
