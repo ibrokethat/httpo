@@ -25,8 +25,7 @@ impl Httpo {
 		Httpo {middleware: Vec::new(), server: 10i}
 	}
 
-	fn utilise (&self, mw: fn(&mut Context)) {
-
+	fn utilise (mut self, mw: fn(&mut Context)) {
 		self.middleware.push(mw);
 	}
 }
@@ -59,7 +58,7 @@ fn test_vec_func () {
 	// v.push(mid_1);
 	// v.push(mid_2);
 
-	let mut app = Httpo::new();
+	let mut app = box Httpo::new();
 
 	app.utilise(mid_1);
 	app.utilise(mid_2);
