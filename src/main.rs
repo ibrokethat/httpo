@@ -65,9 +65,9 @@ fn test_vec_func () {
 	// v.push(mid_2);
 
 	let app = Httpo::new();
-	let mut a = app.clone();
+	let mut a = app;//.clone();
 	a.utilise(&mid_1);
-	let mut b = a.clone();
+	let mut b = a;//.clone();
 	b.utilise(&mid_2);
 
 	// app.clone().utilise(&mid_1);
